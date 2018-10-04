@@ -7,16 +7,18 @@ public class Book {
     private String yearPub;
     private String isbnNumber;
     private String image;
-    private String option1;
-    private String option2;
+    private boolean borrowed ;
+    private boolean available;
 
     public Book() {
 
     }
-    public Book(String title, String author, String yearPub) {
+    public Book(String title, String author, String yearPub, String isbnNumber, String image) {
         this.title = title;
         this.author = author;
         this.yearPub = yearPub;
+        this.isbnNumber = isbnNumber;
+        this.image = image;
 
     }
 
