@@ -76,7 +76,7 @@ public class Main {
         Scanner s = new Scanner(System.in);
         System.out.println("Enter the book title");
         String bookName = s.nextLine();
-        newBook.setTitle(bookName);
+        newBook.setTitle(bookName);git
 
         System.out.println("Enter the author");
         String nameAuthor = s.nextLine();
