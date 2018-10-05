@@ -7,12 +7,12 @@ public class Book {
     private String yearPub;
     private String isbnNumber;
     private String image;
-    private boolean borrowed ;
-    private boolean available;
+    private boolean isBorrowed;
 
     public Book() {
 
     }
+
     public Book(String title, String author, String yearPub, String isbnNumber, String image) {
         this.title = title;
         this.author = author;
@@ -60,5 +60,19 @@ public class Book {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public boolean isBorrowed() {
+        return isBorrowed;
+    }
+
+    public void setBorrowed(boolean borrowed) {
+        isBorrowed = borrowed;
+    }
+
+    @Override
+    public String toString() {
+        String avail = isBorrowed() ? "borrowed" : "available";
+        return getTitle() + "\t\t" + getAuthor() + "\t\t\t" + getYearPub() + "\t\t\t" + getIsbnNumber() + "\t\t\t" + avail;
     }
 }

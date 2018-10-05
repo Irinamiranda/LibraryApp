@@ -1,4 +1,5 @@
 package com.company;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -6,77 +7,86 @@ import java.util.ArrayList;
 public class Main {
 
 
-
     public static void main(String[] args) {
         //create ArrayList to keep all books
         ArrayList<Book> bookList = new ArrayList<>();
         //create an object to keep info about book
-        Book item = new Book("Red Hat", "Perrault", "1950", "12345", "picture");
-        bookList.add(item);
-        Book item2 = new Book("Three piglets", "folklor", "1960", "123423", "picture");
-        bookList.add(item2);
-        Book item3 = new Book("Snow quin", "Andersen", "1945", "123234", "image");
-        bookList.add(item3);
-
+        bookList.add(new Book("Red Hat", "Perrault", "1950", "12345", "picture"));
+        bookList.add(new Book("Three piglets", "folk", "1960", "123423", "picture"));
+        bookList.add(new Book("Snow queen", "Andersen", "1945", "123234", "image"));
 
         System.out.println("Welcome to Library!");
         System.out.println("What do you wish to do? check the List, add the book, borrow the book, or return the book");
 
-        //create a Scanner object to let user make an input
-        Scanner s = new Scanner(System.in);
-        String answer = s.nextLine();
+        while(true) {
+            //create a Scanner object to let user make an input
+            Scanner s = new Scanner(System.in);
+            String answer = s.nextLine();
 
-
-
-        //if user picks to add book
-        if(answer.equalsIgnoreCase("add")){
-
-            bookList.add(addNewbook());
-            System.out.println("Title" + "\t\t\t\t\t" + "Author" + "\t\t\t\t\t" + "Year of Publication" + "\t\t\t\t\t" + "ISBN Number");
-            for (Book eachBook: bookList) {
-                System.out.println( eachBook.getTitle() + "\t\t\t" + eachBook.getAuthor() + "\t\t\t" + eachBook.getYearPub() + "\t\t\t" + eachBook.getIsbnNumber());
+            //if user picks to add book
+            if (answer.equalsIgnoreCase("add")) {
+                cmdAdd(bookList);
+                cmdList(bookList);
+            } else if (answer.equalsIgnoreCase("list")) {
+                cmdList(bookList);
+            } else if (answer.equalsIgnoreCase("borrow")) {
+                cmdBorrow(bookList);
+                cmdList(bookList);
+            } else if (answer.equalsIgnoreCase("return")) {
+                cmdReturn(bookList);
+                cmdList(bookList);
+            } else if (answer.equalsIgnoreCase("exit")) {
+                break;
             }
+        }
+    }
 
+    public static void cmdList(ArrayList<Book> bookList) {
+        System.out.println("Title" + "\t\t\t\t\t" + "Author" + "\t\t\t\t\t" + "Year of Publication" + "\t\t\t\t\t" + "ISBN Number");
+        for (Book eachBook : bookList) {
+            System.out.println(eachBook);
+        }
+    }
 
+    public static void cmdAdd(ArrayList<Book> bookList) {
+        bookList.add(addNewBook());
+    }
 
-
-        } else if (answer.equalsIgnoreCase("list")) {
-            System.out.println("Title" + "\t\t\t\t\t" + "Author" + "\t\t\t\t\t" + "Year of Publication" + "\t\t\t\t\t" + "ISBN Number");
-
-            for (Book eachBook: bookList) {
-                System.out.println( eachBook.getTitle() + "\t\t" + eachBook.getAuthor() + "\t\t\t" + eachBook.getYearPub() + "\t\t\t" + eachBook.getIsbnNumber());
-            }
-
-        }else if (answer.equalsIgnoreCase("borrow")) {
-            System.out.println("Pick the book");
-            System.out.println("Title" + "\t\t\t\t\t" + "Author" + "\t\t\t\t\t" + "Year of Publication" + "\t\t\t\t\t" + "ISBN Number");
-            for (Book eachBook: bookList) {
-                System.out.println( eachBook.getTitle() + "\t\t\t" + eachBook.getAuthor() + "\t\t\t" + eachBook.getYearPub() + "\t\t\t" + eachBook.getIsbnNumber());
-            }
-
-
-            }
-
-
-
-
+    public static void cmdBorrow(ArrayList<Book> bookList) {
+        System.out.println("Pick the book");
+        System.out.println("Title" + "\t\t\t\t\t" + "Author" + "\t\t\t\t\t" + "Year of Publication" + "\t\t\t\t\t" + "ISBN Number");
+        for (int i = 0; i < bookList.size(); i++) {
+            Book eachBook = bookList.get(i);
+            System.out.println((i + 1) + ". " + eachBook.toString());
         }
 
+        int idx = new Scanner(System.in).nextInt();
+        Book selected = bookList.get(idx - 1);
+        selected.setBorrowed(true);
+    }
 
+    public static void cmdReturn(ArrayList<Book> bookList) {
+        System.out.println("Pick the book");
+        System.out.println("Title" + "\t\t\t\t\t" + "Author" + "\t\t\t\t\t" + "Year of Publication" + "\t\t\t\t\t" + "ISBN Number");
+        for (int i = 0; i < bookList.size(); i++) {
+            Book eachBook = bookList.get(i);
+            System.out.println((i + 1) + ". " + eachBook.toString());
+        }
 
-
-	// write your code here
+        int idx = new Scanner(System.in).nextInt();
+        Book selected = bookList.get(idx - 1);
+        selected.setBorrowed(false);
+    }
 
     //create method to add the book to the library
-    public static Book addNewbook() {
-
+    public static Book addNewBook() {
         //create an object book to keep all info about each book
         Book newBook = new Book();
         //create a Scanner object to let user make an input
         Scanner s = new Scanner(System.in);
         System.out.println("Enter the book title");
         String bookName = s.nextLine();
-        newBook.setTitle(bookName);git
+        newBook.setTitle(bookName);
 
         System.out.println("Enter the author");
         String nameAuthor = s.nextLine();
@@ -95,8 +105,6 @@ public class Main {
         newBook.setImage(bookimage);
 
         return newBook;
-
-
 
 
     }
